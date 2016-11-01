@@ -18,6 +18,38 @@ Vue.filter('accountStatus', function (value) {
 
 });
 
+var menuComponent = Vue.extend({
+    template: `
+    <nav class="navbar navbar-default navbar-static-top">
+    <div class="container">
+        <ul class="nav navbar-nav">
+            <li v-for="o in menus">
+                <a href="#" @click.prevent="showView(o.id)">{{ o.name }}</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+`,
+    data: function () {
+        return {
+            menus: [
+                {id: 0, name: "Listar contas"},
+                {id: 1, name: "Criar conta"}
+            ],
+        };
+    },
+    methods: {
+        showView: function (id) {
+            if (id == '1') {
+                this.$parent.formType = 'insert'
+            }
+            this.$parent.activedView = id;
+        }
+    }
+});
+
+Vue.component('menu-component', menuComponent);
+
 var appComponent = Vue.extend({
     template: `
 <style type="text/css">
@@ -33,19 +65,12 @@ var appComponent = Vue.extend({
             color: gray;
         }
     </style>
-    <nav class="navbar navbar-default navbar-static-top">
-    <div class="container">
-        <ul class="nav navbar-nav">
-            <li v-for="o in menus">
-                <a href="#" @click.prevent="showView(o.id)">{{ o.name }}</a>
-            </li>
-        </ul>
-    </div>
-</nav>
+
+
+<menu-component></menu-component>
 <div class="container-fluid">
 
     <div class="container">
-
 
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -118,10 +143,7 @@ var appComponent = Vue.extend({
     data: function () {
         return {
             title: "Contas a pagar",
-            menus: [
-                {id: 0, name: "Listar contas"},
-                {id: 1, name: "Criar conta"}
-            ],
+
             activedView: '',
             formType: 1,
             names: ['Cartão de crédito', 'Supermercado', 'Conta de Luz', 'Conta de Água'],
@@ -157,14 +179,7 @@ var appComponent = Vue.extend({
         }
     },
     methods: {
-        showView: function (id) {
 
-            if (id == '1') {
-                this.formType = 'insert'
-            }
-
-            this.activedView = id;
-        },
         submit: function () {
 
             if (this.formType == 'insert') {

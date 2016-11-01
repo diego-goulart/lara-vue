@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Curso Laravel 5.3 com Vue.js</title>
+</head>
+<body id="app">
+
+<h1>{{ title }}</h1>
+<h3>{{ status }}</h3>
+<table border="1" class="table table-bordered">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Vencimento</th>
+        <th>Descrição</th>
+        <th>Valor</th>
+        <th>Paga?</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr v-for="(index,o) in bills">
+        <td>{{ index }}</td>
+        <td>{{ o.date_due }}</td>
+        <td>{{ o.name }}</td>
+        <td>{{ o.value }}</td>
+        <td>{{ o.done }}</td>
+    </tr>
+
+    </tbody>
+</table>
+
+<script type="text/javascript" src="node_modules/vue/dist/vue.min.js"></script>
+<script type="text/javascript" src="app.js"></script>
+</body>
+</html>

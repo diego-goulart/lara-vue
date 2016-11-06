@@ -1,19 +1,19 @@
-window.billPayCreateComponent = Vue.extend({
+window.billReceiveCreateComponent = Vue.extend({
     template: `
-    <h2>Cadastro de Conta</h2>
+    <h2>Cadastro de Recebimento</h2>
     <form @submit.prevent="submit">
          <label>Date Due</label>
-         <input type="text" v-model="bill.date_due">
+         <input type="text" v-model="receive.date_due">
          <br/>
          <br/>
          <label>Name</label>
-         <select v-model="bill.name">
+         <select v-model="receive.name">
             <option v-for="o in names" :value="o">{{ o }}</option>
          </select>
          <br>
          <br>
          <label>Value</label>
-         <input type="text" v-model="bill.value">
+         <input type="text" v-model="receive.value">
          <br><br>
          <input type="submit" value="Submit">
     </form>
@@ -22,8 +22,8 @@ window.billPayCreateComponent = Vue.extend({
     data: function () {
         return {
             formType: 'insert',
-            names: ['Cartão de crédito', 'Supermercado', 'Conta de Luz', 'Conta de Água'],
-            bill : {
+            names: ['Salário', 'Freelance'],
+            receive : {
                 date_due: '',
                 name: '',
                 value: 0,
@@ -32,36 +32,36 @@ window.billPayCreateComponent = Vue.extend({
         };
     },
     created: function(){
-        if(this.$route.name == 'bill.update'){
+        if(this.$route.name == 'bill-receive.update'){
             this.formType = 'update';
-            this.getBill(this.$route.params.index);
+            this.getReceive(this.$route.params.index);
         }
     },
     methods: {
         submit: function () {
 
             if (this.formType == 'insert') {
-                this.$root.$children[0].billsPay.push(this.bill);
+                this.$root.$children[0].billReceives.push(this.receive);
             }
 
-            this.bill = {
+            this.receive = {
                 date_due: '',
                 name: '',
                 value: 0,
                 done: false,
             };
 
-            this.$router.go({name: 'bill.list'});
+            this.$router.go({name: 'bill-receive.list'});
         },
-        getBill: function (index) {
-            var bills = this.$root.$children[0].billsPay;
-            this.bill = bills[index];
+        getReceive: function (index) {
+            var receives = this.$root.$children[0].billReceives;
+            this.receive = receives[index];
         }
 
     },
     events: {
-        'change-bill': function (bill) {
-            this.bill = bill;
+        'change-receive': function (receive) {
+            this.receive = receive;
         }
     }
 });

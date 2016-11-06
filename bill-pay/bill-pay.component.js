@@ -1,12 +1,12 @@
 window.billPayComponent = Vue.extend({
     template: `
-<menu-component></menu-component>
 
-<div class="container-fluid">
     <div class="container">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h1 class="panel-title">{{ title }}</h1>
+                <h1 class="panel-title pull-left">{{ title }}</h1>
+                <menu-component></menu-component>
+                <div class="clearfix"></div>
             </div>
             <div class="panel-body">
                 <div class="alert" :class="{'alert-danger': status > 0, 'alert-success': status == 0, 'alert-info': status === false}" >
@@ -18,7 +18,7 @@ window.billPayComponent = Vue.extend({
             </div>
         </div>
     </div>
-</div>
+
     `,
     components: {
         'menu-component': billPayMenuComponent
@@ -30,7 +30,7 @@ window.billPayComponent = Vue.extend({
     },
     computed: {
         status: function () {
-            var bills = this.$root.$children[0].billsPay;
+            var bills = this.$root.$children[0].billPays;
             if (bills.length == 0) {
                 return false
             }

@@ -1,4 +1,4 @@
-window.billPayListComponent = Vue.extend({
+window.billReceiveListComponent = Vue.extend({
     template: `
     <style type="text/css">
         .pago {
@@ -25,7 +25,7 @@ window.billPayListComponent = Vue.extend({
             </tr>
         </thead>
         <tbody>
-            <tr v-for="(index,o) in bills">
+            <tr v-for="(index,o) in receives">
                 <td>{{ index }}</td>
                 <td>{{ o.date_due }}</td>
                 <td>{{ o.name }}</td>
@@ -35,8 +35,8 @@ window.billPayListComponent = Vue.extend({
                         {{ o.done | doneLabel }}
                 </td>
                 <td>
-                    <a v-link="{ name: 'bill.update', params:{index:index} }">Edit</a> |
-                    <a href="#" @click.prevent="deleteBill(index, o)">Delete</a>
+                    <a v-link="{ name: 'bill-receive.update', params:{index:index} }">Edit</a> |
+                    <a href="#" @click.prevent="deleteReceive(index, o)">Delete</a>
                 </td>
             </tr>
         </tbody>
@@ -44,22 +44,22 @@ window.billPayListComponent = Vue.extend({
     `,
     data: function () {
         return {
-            bills: this.$root.$children[0].billsPay
+            receives: this.$root.$children[0].billReceives
         }
     },
     methods: {
-        deleteBill: function (index, bill) {
+        deleteReceive: function (index, receive) {
 
-            var r = confirm('Tem certeza que deseja excluir a conta "' + bill.name + '"?');
+            var r = confirm('Tem certeza que deseja excluir a o recebimento "' + receive.name + '"?');
 
             if (r == true) {
-                this.bills.splice(index, 1);
+                this.receives.splice(index, 1);
             }
 
             this.$parent.activedView = 0;
         },
         changeStatus: function (index) {
-            return this.bills[index].done = !this.bills[index].done;
+            return this.receives[index].done = !this.receives[index].done;
         }
     },
     events: {}

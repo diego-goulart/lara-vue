@@ -24,3 +24,18 @@ Vue.filter('accountStatus', function (value) {
     return "Nenhuma conta a ser paga"
 
 });
+
+/**
+ * Filtro que traz um resumo geral dos recebimentos.
+ */
+Vue.filter('receiveStatus', function (value) {
+
+    if (value === false) {
+        return "Nenhum recebimento cadastrado";
+    }
+    if (value > 0) {
+        return "Existem " + value + " recebimentos em aberto";
+    }
+    return "Nenhum recebimento em aberto"
+
+});
